@@ -1,0 +1,32 @@
+{
+  "name": "blogexpress",
+  "version": "1.0.0",
+  "description": "Web application blog written in:",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorbanevalex/blogExpress.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gorbanevalex/blogExpress/issues"
+  },
+  "homepage": "https://github.com/gorbanevalex/blogExpress#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.3",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7"
+  }
+}
