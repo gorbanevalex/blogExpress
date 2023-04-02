@@ -5,8 +5,10 @@ import dotenv from "dotenv";
 import checkToken from "./utils/checkToken.js";
 
 import { registerValidation } from "./validations/auth.js";
+import { PostValidation } from "./validations/post.js";
 
 import * as UserController from "./controllers/UserController.js";
+import * as PostController from "./controllers/PostController.js";
 
 dotenv.config();
 mongoose
@@ -31,7 +33,8 @@ app.listen(8000, (err) => {
 });
 
 app.post("/user/register", registerValidation, UserController.register);
-
 app.post("/user/login", UserController.login);
-
 app.get("/user/me", checkToken, UserController.getMe);
+
+app.get("/posts", PostController.getAll);
+app.post("/posts", checkToken, PostValidation, PostController.create);
