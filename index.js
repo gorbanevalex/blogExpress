@@ -37,4 +37,7 @@ app.post("/user/login", UserController.login);
 app.get("/user/me", checkToken, UserController.getMe);
 
 app.get("/posts", PostController.getAll);
+app.get("/posts/:id", PostController.getOne);
 app.post("/posts", checkToken, PostValidation, PostController.create);
+app.delete("/posts/:id", checkToken, PostController.remove);
+app.patch("/posts/:id", checkToken, PostController.update);
