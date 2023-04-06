@@ -76,10 +76,6 @@ export const remove = async (req, res) => {
 };
 
 export const create = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json(errors);
-  }
   try {
     const doc = new PostModel({
       text: req.body.text,
@@ -99,7 +95,6 @@ export const create = async (req, res) => {
 
 export const update = async (req, res) => {
   const id = req.params.id;
-
   try {
     await PostModel.updateOne(
       {
