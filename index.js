@@ -2,10 +2,13 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import multer from "multer";
+import cors from "cors";
 
 import { UserController, PostController } from "./controllers/index.js";
 
-import { checkToken, hadlerValidationErrors } from "./utils/index.js";
+import { hadlerValidationErrors } from "./utils/index.js";
+
+import checkToken from "./middleware/checkToken.js";
 
 import { loginValidation, registerValidation } from "./validations/auth.js";
 import { PostValidation } from "./validations/post.js";
@@ -35,6 +38,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
+app.use(cors());
 app.use("/upload", express.static("uploads"));
 
 app.listen(8000, (err) => {
@@ -71,6 +75,7 @@ app.post("/upload", checkToken, upload.single("image"), (req, res) => {
 });
 
 app.get("/posts", PostController.getAll);
+app.get("/posts/tags", PostController.getLastTags);
 app.get("/posts/:id", PostController.getOne);
 app.post(
   "/posts",

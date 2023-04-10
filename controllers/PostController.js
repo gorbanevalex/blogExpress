@@ -2,6 +2,25 @@ import { json } from "express";
 import { validationResult } from "express-validator";
 import PostModel from "../models/Posts.js";
 
+export const getLastTags = async (req, res) => {
+  try {
+    const posts = await PostModel.find().limit(5);
+    const uniqueTags = new Set();
+
+    posts.map((post) => {
+      post.tags.forEach((tag) => {
+        uniqueTags.add(tag);
+      });
+    });
+
+    res.json(Array.from(uniqueTags));
+  } catch (error) {
+    res.status(500).json({
+      message: "Не удалось получить теги",
+    });
+  }
+};
+
 export const getAll = async (req, res) => {
   try {
     const posts = await PostModel.find().populate("author", [
