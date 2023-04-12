@@ -97,3 +97,15 @@ export const getMe = async (req, res) => {
     });
   }
 };
+
+export const getUser = async (req, res) => {
+  try {
+    console.log(req.params);
+    const user = await UserModel.findById(req.params.id);
+    res.json(user);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Не удалось получить информацию о пользователе!",
+    });
+  }
+};

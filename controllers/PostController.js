@@ -23,11 +23,9 @@ export const getLastTags = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const posts = await PostModel.find().populate("author", [
-      "nickname",
-      "email",
-      "avatarUrl",
-    ]);
+    const posts = await PostModel.find()
+      .sort(`-${req.body.sortBy}`)
+      .populate("author", ["nickname", "email", "avatarUrl"]);
 
     res.json(posts);
   } catch (error) {
@@ -136,6 +134,29 @@ export const update = async (req, res) => {
     console.log(error);
     res.status(500).json({
       message: "Не удалось обновить статью",
+    });
+  }
+};
+
+export const addComment = async (req, res) => {
+  try {
+    const doc = await PostModel.findById({
+      _id: req.body.postId,
+    });
+    console.log(req.userId);
+
+    doc.comments.unshift({
+      authorId: req.userId,
+      text: req.body.text,
+    });
+
+    const post = await doc.save();
+
+    res.json(post);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Не удалось добавить комментарий!",
     });
   }
 };

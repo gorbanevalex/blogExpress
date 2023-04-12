@@ -61,11 +61,11 @@ app.post(
   UserController.login
 );
 app.get("/user/me", checkToken, UserController.getMe);
-
-app.post("/upload", checkToken, upload.single("image"), (req, res) => {
+app.get("/user/:id", UserController.getUser);
+app.post("/upload", upload.single("image"), (req, res) => {
   try {
     res.json({
-      url: `/uploads/${req.file.originalname}`,
+      url: `/upload/${req.file.originalname}`,
     });
   } catch (error) {
     res.status(500).json({
@@ -74,7 +74,7 @@ app.post("/upload", checkToken, upload.single("image"), (req, res) => {
   }
 });
 
-app.get("/posts", PostController.getAll);
+app.post("/posts/get", PostController.getAll);
 app.get("/posts/tags", PostController.getLastTags);
 app.get("/posts/:id", PostController.getOne);
 app.post(
@@ -84,6 +84,7 @@ app.post(
   hadlerValidationErrors,
   PostController.create
 );
+app.post("/posts/comment", checkToken, PostController.addComment);
 app.delete("/posts/:id", checkToken, PostController.remove);
 app.patch(
   "/posts/:id",
