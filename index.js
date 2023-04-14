@@ -16,7 +16,7 @@ import { PostValidation } from "./validations/post.js";
 dotenv.config();
 mongoose
   .connect(
-    `mongodb+srv://admin:${process.env.PASSWORD_DB}@cluster0.m1ocnis.mongodb.net/blogExpress?retryWrites=true&w=majority`
+    `mongodb+srv://admin:$12345Sdfg6@cluster0.m1ocnis.mongodb.net/blogExpress?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("MongoBG already!");
